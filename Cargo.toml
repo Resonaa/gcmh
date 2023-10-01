@@ -1,0 +1,27 @@
+[package]
+name = "gcmh"
+version = "0.1.0"
+edition = "2021"
+license = "Unlicense"
+description = "A CLI tool to improve your custom maps on generals.io."
+repository = "https://github.com/jwcub/gcmh"
+homepage = "https://github.com/jwcub/gcmh"
+keywords = ["cli", "web", "game"]
+categories = ["command-line-utilities", "web-programming", "games"]
+authors = ["jwcub <jwcub@outlook.com>"]
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }
+clap-verbosity-flag = "2.0"
+env_logger = "0.10"
+log = "0.4"
+anyhow = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+reqwest = { version = "0.11", features = ["json"] }
+tokio = { version = "1.32", features = ["full"] }
+rust_socketio = { version = "0.4", features = ["async"] }
+futures-util = "0.3"
+fake = "2.8"
+fastrand = "2.0"
+prettytable-rs = "0.10"
