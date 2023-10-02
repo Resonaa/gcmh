@@ -1,5 +1,10 @@
 # gcmh
 
+[![](https://img.shields.io/github/actions/workflow/status/jwcub/gcmh/rust.yml)](https://github.com/jwcub/gcmh/actions)
+[![](https://img.shields.io/crates/v/gcmh)](https://crates.io/crates/gcmh)
+[![](https://img.shields.io/crates/d/gcmh)](https://crates.io/crates/gcmh)
+[![](https://img.shields.io/github/license/jwcub/gcmh)](https://github.com/jwcub/gcmh/blob/main/LICENSE)
+
 **G**enerals **C**ustom **M**aps **H**elper
 
 `gcmh` is a CLI tool to improve your custom maps on [generals.io](https://generals.io).
@@ -48,14 +53,14 @@ Options:
 
 ## Installation
 
-### Install From Cargo (Recommended)
+### Installing from Crates.io (Recommended)
 ```sh
 $ cargo install gcmh
 $ gcmh --version
 gcmh 0.1.0
 ```
 
-### Build From Source
+### Building from Source
 ```sh
 $ git clone https://github.com/jwcub/gcmh
 $ cd gcmh
@@ -63,3 +68,6 @@ $ cargo build --release
 $ ./target/release/gcmh --version
 gcmh 0.1.0
 ```
+
+## License
+This project is licensed under the [Unlicense](https://github.com/jwcub/gcmh/blob/main/LICENSE).
