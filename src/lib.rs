@@ -1,9 +1,16 @@
 pub mod constants;
 pub mod search;
+pub mod upvote;
 pub mod utils;
 
 use clap::{Parser, Subcommand};
 use clap_verbosity_flag::InfoLevel;
+use prettytable::{
+    format::{FormatBuilder, LinePosition, LineSeparator},
+    table,
+};
+use serde::Deserialize;
+use std::fmt::Display;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -37,4 +44,39 @@ pub enum Commands {
 
     /// Play a map
     Play,
+}
+
+/// Map info returned by generals.io API.
+#[derive(Debug, Deserialize)]
+pub struct MapInfo {
+    pub score: f64,
+    pub upvotes: usize,
+    pub title: String,
+
+    #[serde(default)]
+    pub username: String,
+}
+
+impl Display for MapInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let format = FormatBuilder::new()
+            .borders('|')
+            .separators(
+                &[LinePosition::Top, LinePosition::Bottom],
+                LineSeparator::new('-', '+', '+', '+'),
+            )
+            .padding(1, 1)
+            .build();
+
+        let mut table = table!(
+            ["Name", self.title],
+            ["Author", self.username],
+            ["Upvotes", self.upvotes],
+            ["Score", self.score]
+        );
+
+        table.set_format(format);
+
+        table.fmt(f)
+    }
 }

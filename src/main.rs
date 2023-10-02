@@ -1,13 +1,9 @@
 use anyhow::Result;
 use clap::Parser;
-use gcmh::{
-    search::{print_search_results, search},
-    Cli, Commands,
-};
+use gcmh::{search::search, upvote::upvote, Cli, Commands};
 use log::debug;
 
-#[tokio::main]
-async fn main() -> Result<()> {
+fn main() -> Result<()> {
     let cli = Cli::parse();
 
     env_logger::Builder::new()
@@ -19,8 +15,10 @@ async fn main() -> Result<()> {
 
     match cli.commands {
         Commands::Search => {
-            let maps = search(cli.map, cli.count).await?;
-            print_search_results(&maps);
+            search(&cli.map, cli.count)?;
+        }
+        Commands::Upvote => {
+            upvote(&cli.map, cli.count)?;
         }
         _ => unimplemented!(),
     }
