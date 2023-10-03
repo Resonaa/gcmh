@@ -1,6 +1,6 @@
 [package]
 name = "gcmh"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2021"
 license = "Unlicense"
 description = "A CLI tool to improve your custom maps on generals.io."
