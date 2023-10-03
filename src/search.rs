@@ -1,5 +1,5 @@
 use crate::{constants::MAP_SEARCH_API, MapInfo};
-use anyhow::{Context, Result};
+use anyhow::Result;
 use log::{debug, info};
 use reqwest::blocking::Client;
 
@@ -19,8 +19,7 @@ pub fn search(map: &str, count: u64) -> Result<()> {
         .map(|mut maps| {
             maps.truncate(count as usize);
             maps
-        })
-        .with_context(|| "failed to search.")?;
+        })?;
 
     info!("found {} map(s)", maps.len());
 

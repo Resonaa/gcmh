@@ -103,7 +103,7 @@ pub fn set_pb(len: u64) -> ProgressBar {
 
     pb.set_style(
         ProgressStyle::with_template(
-            "[{elapsed_precise}] [{wide_bar:.cyan/blue}] {pos}/{len} ({eta})",
+            "{spinner:.green} [{elapsed_precise}] [{wide_bar:.cyan/blue}] {pos}/{len} ({eta})",
         )
         .unwrap()
         .with_key("eta", |state: &ProgressState, w: &mut dyn Write| {

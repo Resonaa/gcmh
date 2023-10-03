@@ -3,13 +3,13 @@ use crate::{
     utils::{random_user_id, random_username, set_pb, set_username},
     MapInfo,
 };
-use anyhow::{Context, Result};
+use anyhow::Result;
 use log::{debug, info, warn};
 use rust_socketio::{ClientBuilder, Payload};
 use serde_json::json;
 use std::sync::mpsc;
 
-pub fn get(map: &str) -> Result<MapInfo> {
+pub fn get(map: &str) -> Result<()> {
     info!("searching for map `{map}`");
 
     let client = reqwest::blocking::Client::new();
@@ -17,17 +17,11 @@ pub fn get(map: &str) -> Result<MapInfo> {
 
     debug!("search params: {params:?}");
 
-    let map = client
-        .get(MAP_INFO_API)
-        .query(&params)
-        .send()
-        .with_context(|| "failed to search.")?
-        .json::<MapInfo>()
-        .with_context(|| "map not found.")?;
+    let map: MapInfo = client.get(MAP_INFO_API).query(&params).send()?.json()?;
 
     print!("{map}");
 
-    Ok(map)
+    Ok(())
 }
 
 fn vote(map: &str, user_id: &str) -> Result<()> {
@@ -36,11 +30,7 @@ fn vote(map: &str, user_id: &str) -> Result<()> {
 
     debug!("vote params: {params}");
 
-    client
-        .post(MAP_UPVOTE_API)
-        .json(&params)
-        .send()
-        .with_context(|| "failed to vote.")?;
+    client.post(MAP_UPVOTE_API).json(&params).send()?;
 
     Ok(())
 }
@@ -88,7 +78,5 @@ pub fn upvote(map: &str, count: u64) -> Result<()> {
 
     info!("successfully voted map for {count} times. Fetching new data...");
 
-    get(map)?;
-
-    Ok(())
+    get(map)
 }
