@@ -61,7 +61,7 @@ Options:
 ```sh
 $ cargo install gcmh
 $ gcmh --version
-gcmh 1.1.0
+gcmh 1.2.0
 ```
 
 ### Building from Source
@@ -71,7 +71,7 @@ $ git clone https://github.com/jwcub/gcmh
 $ cd gcmh
 $ cargo build --release
 $ ./target/release/gcmh --version
-gcmh 1.1.0
+gcmh 1.2.0
 ```
 
 ## License
