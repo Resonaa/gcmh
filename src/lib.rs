@@ -25,7 +25,7 @@ pub struct Cli {
 
     /// Operations count
     #[arg(short, long, default_value_t = 10)]
-    pub count: usize,
+    pub count: u64,
 
     #[clap(flatten)]
     pub verbose: clap_verbosity_flag::Verbosity<InfoLevel>,

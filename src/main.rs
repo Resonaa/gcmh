@@ -14,16 +14,8 @@ fn main() -> Result<()> {
     debug!("cli parsed: {:?}", cli);
 
     match cli.commands {
-        Commands::Search => {
-            search(&cli.map, cli.count)?;
-        }
-        Commands::Upvote => {
-            upvote(&cli.map, cli.count)?;
-        }
-        Commands::Play => {
-            play(&cli.map, cli.count)?;
-        }
+        Commands::Search => search(&cli.map, cli.count),
+        Commands::Upvote => upvote(&cli.map, cli.count),
+        Commands::Play => play(&cli.map, cli.count),
     }
-
-    Ok(())
 }

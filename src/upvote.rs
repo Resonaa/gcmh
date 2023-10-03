@@ -1,6 +1,6 @@
 use crate::{
     constants::{MAP_INFO_API, MAP_UPVOTE_API, WS_URL},
-    utils::{random_user_id, random_username, set_username},
+    utils::{random_user_id, random_username, set_pb, set_username},
     MapInfo,
 };
 use anyhow::{Context, Result};
@@ -45,8 +45,10 @@ fn vote(map: &str, user_id: &str) -> Result<()> {
     Ok(())
 }
 
-pub fn upvote(map: &str, count: usize) -> Result<()> {
+pub fn upvote(map: &str, count: u64) -> Result<()> {
     get(map)?;
+
+    let pb = set_pb(count);
 
     for i in 1..=count {
         let (tx, rx) = mpsc::channel();
@@ -81,7 +83,7 @@ pub fn upvote(map: &str, count: usize) -> Result<()> {
 
         vote(map, &user_id)?;
 
-        info!("map voted ({i}/{count})");
+        pb.set_position(i);
     }
 
     info!("successfully voted map for {count} times. Fetching new data...");

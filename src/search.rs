@@ -3,7 +3,7 @@ use anyhow::{Context, Result};
 use log::{debug, info};
 use reqwest::blocking::Client;
 
-pub fn search(map: &str, count: usize) -> Result<Vec<MapInfo>> {
+pub fn search(map: &str, count: u64) -> Result<()> {
     info!("searching for {count} map(s) in keyword `{map}`");
 
     let client = Client::new();
@@ -17,16 +17,16 @@ pub fn search(map: &str, count: usize) -> Result<Vec<MapInfo>> {
         .send()
         .and_then(|data| data.json::<Vec<MapInfo>>())
         .map(|mut maps| {
-            maps.truncate(count);
+            maps.truncate(count as usize);
             maps
         })
         .with_context(|| "failed to search.")?;
 
     info!("found {} map(s)", maps.len());
 
-    for map in &maps {
+    for map in maps {
         print!("{map}");
     }
 
-    Ok(maps)
+    Ok(())
 }
