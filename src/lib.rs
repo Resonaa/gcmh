@@ -1,4 +1,5 @@
 pub mod constants;
+pub mod play;
 pub mod search;
 pub mod upvote;
 pub mod utils;
@@ -25,10 +26,6 @@ pub struct Cli {
     /// Operations count
     #[arg(short, long, default_value_t = 10)]
     pub count: usize,
-
-    /// Interval (ms) between two operations
-    #[arg(short, long, default_value_t = 1606)]
-    pub interval: u32,
 
     #[clap(flatten)]
     pub verbose: clap_verbosity_flag::Verbosity<InfoLevel>,
@@ -79,4 +76,9 @@ impl Display for MapInfo {
 
         table.fmt(f)
     }
+}
+
+#[derive(Debug, Deserialize)]
+pub struct GameUpdate {
+    pub turn: usize,
 }

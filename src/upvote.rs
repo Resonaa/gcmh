@@ -9,7 +9,7 @@ use rust_socketio::{ClientBuilder, Payload};
 use serde_json::json;
 use std::sync::mpsc;
 
-fn get(map: &str) -> Result<MapInfo> {
+pub fn get(map: &str) -> Result<MapInfo> {
     info!("searching for map `{map}`");
 
     let client = reqwest::blocking::Client::new();
@@ -52,7 +52,6 @@ pub fn upvote(map: &str, count: usize) -> Result<()> {
         let (tx, rx) = mpsc::channel();
 
         let socket = ClientBuilder::new(WS_URL)
-            .on("connect", |_, _| info!("connected to server"))
             .on("error_set_username", move |payload, _| {
                 debug!("received payload: {payload:?}");
 

@@ -2,7 +2,7 @@ use crate::constants::{NBK, USERNAME_REPLACERS, USER_ID_LENGTH};
 use anyhow::Result;
 use fake::{faker::name::en::Name, Fake};
 use log::debug;
-use rust_socketio::client::Client;
+use rust_socketio::{client::Client, RawClient};
 use std::iter::repeat_with;
 
 /// Generates a random username.
@@ -54,6 +54,50 @@ pub fn set_username(socket: &Client, user_id: &str, username: &str) -> Result<()
     debug!("sending {data}");
 
     socket.emit("set_username", data)?;
+
+    Ok(())
+}
+
+pub fn join_private(socket: &RawClient, user_id: &str, room: &str) -> Result<()> {
+    debug!("user_id {user_id}, joining {room}");
+
+    let data = strings!(room, user_id, NBK);
+    debug!("sending {data}");
+
+    socket.emit("join_private", data)?;
+
+    Ok(())
+}
+
+pub fn set_force_start(socket: &RawClient, room: &str) -> Result<()> {
+    debug!("setting force start in {room}");
+
+    let data = strings!(room, "true");
+    debug!("sending {data}");
+
+    socket.emit("set_force_start", data)?;
+
+    Ok(())
+}
+
+pub fn set_custom_map(socket: &RawClient, room: &str, map: &str) -> Result<()> {
+    debug!("setting custom map {map} in {room}");
+
+    let data = format!("{room}\",{{\"map\":\"{map}\"}},\"");
+    debug!("sending {data}");
+
+    socket.emit("set_custom_options", data)?;
+
+    Ok(())
+}
+
+pub fn set_speed(socket: &RawClient, room: &str, speed: f64) -> Result<()> {
+    debug!("setting speed {speed} in {room}");
+
+    let data = format!("{room}\",{{\"game_speed\":{speed}}},\"");
+    debug!("sending {data}");
+
+    socket.emit("set_custom_options", data)?;
 
     Ok(())
 }

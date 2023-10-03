@@ -1,6 +1,6 @@
 use anyhow::Result;
 use clap::Parser;
-use gcmh::{search::search, upvote::upvote, Cli, Commands};
+use gcmh::{play::play, search::search, upvote::upvote, Cli, Commands};
 use log::debug;
 
 fn main() -> Result<()> {
@@ -20,7 +20,9 @@ fn main() -> Result<()> {
         Commands::Upvote => {
             upvote(&cli.map, cli.count)?;
         }
-        _ => unimplemented!(),
+        Commands::Play => {
+            play(&cli.map, cli.count)?;
+        }
     }
 
     Ok(())

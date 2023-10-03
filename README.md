@@ -28,7 +28,6 @@ Commands:
 Options:
   -m, --map <MAP>            Map name [default: "1*1 Ultimate"]
   -c, --count <COUNT>        Operations count [default: 10]
-  -i, --interval <INTERVAL>  Interval (ms) between two operations [default: 1606]
   -v, --verbose...           More output per occurrence
   -q, --quiet...             Less output per occurrence
   -h, --help                 Print help
