@@ -9,8 +9,6 @@
 
 `gcmh` is a CLI tool to improve your custom maps on [generals.io](https://generals.io).
 
-**Note: This project is currently work in progress. Some features are missing and will be implemented soon.**
-
 ## Usage
 
 ```plaintext
